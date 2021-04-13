@@ -9,6 +9,10 @@ With CircuitPython, it becomes pretty easy to actually read these encoders
 since all hard, timing-critical work is done inside the C-based `rotaryio`
 library that comes standard with CircuitPython.
 
+One twist to look out for: the two rotary encoder pins must be hooked up
+to adjacent pins on the Pico, because of how `rotaryio` uses the Pico's
+PIO module to handle reading the encoder pulses.
+
 The core of the code looks like this:
 ```py
 encoder_pins = ( (board.GP12, board.GP13, board.GP16),  # pin A, pin B, pin for switch
