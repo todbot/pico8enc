@@ -15,6 +15,8 @@ encoder_pins = ( (board.GP12, board.GP13, board.GP16),  # pin A, pin B, pin for 
                  (board.GP10, board.GP11, board.GP17),
                  (board.GP8, board.GP9, board.GP18),
                  (board.GP6, board.GP7, board.GP19),
+                 # ...
+                 )
 encoders = []
 encoder_buttons = []
 for pins in encoder_pins:
