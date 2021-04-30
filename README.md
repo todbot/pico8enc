@@ -1,15 +1,17 @@
 # pico8enc -- 8 rotary encoders on a Raspberry Pi Pico
 
-Turns out you can hook up 8 rotary encoders with switches to
-Raspberry Pi Pico without any extra hardware. Pretty cool!
-
-<img width=500 src="./docs/pico8enc_breadboard.png">
+Turns out you can hook up 8 rotary encoders w/ switches to
+Raspberry Pi Pico with no extra hardware. Pretty cool!
 
 With CircuitPython, it becomes pretty easy to actually read these encoders
 since all hard, timing-critical work is done inside the C-based `rotaryio`
 library that comes standard with CircuitPython.
 
-One twist to look out for: the two rotary encoder pins must be hooked up
+<img width=500 src="./docs/pico8enc_breadboard.png">
+<img width=500 src="./docs/pico8enc_pic1.jpg">
+
+
+One "twist" to look out for (haha): the two rotary encoder pins must be hooked up
 to adjacent pins on the Pico, because of how `rotaryio` uses the Pico's
 PIO module to handle reading the encoder pulses.
 
@@ -38,5 +40,6 @@ while True:
 
 ```
 
-
 <img width=500 src="./docs/pico8enclol.jpg">
+<img width=500 src="./docs/pico8enc_topshot_gr_1600.jpg">
+
