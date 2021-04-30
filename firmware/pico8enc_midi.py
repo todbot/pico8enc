@@ -30,6 +30,9 @@ knobs_config  = (
     ( (board.GP27, board.GP28, board.GP26), 0xFF00FF, 21 ),  # left-most knob
 )
 
+num_leds = 8
+led_pin = board.GP14
+
 # contains all the info needed about a knob
 class Knob:
     def __init__(self, encoder, button, color, midi_cc_num, midi_cc_val=0):
@@ -57,22 +60,8 @@ class Knob:
     @property
     def midi_cc_val(self):
         self._midi_cc_val = 2 * self.position
-        #self._midi_cc_val = min(max(self._midi_cc_val,0),127)
-        #val = 127 - self.encoder.position
-        #self._midi_cc_val = min(max(val,0),127)
         return self._midi_cc_val
     
-    # # encoder clicks since last read
-    # def _get_encoder_diff(self):
-    #     diff = self.encoder.position - self._last_val
-    #     self._last_val = self.encoder.position
-    #     return diff
-
-    # def _set_encoder_diff(self,val):
-    #     self._last_val = self.encoder.position - val
-        
-    # encoder_diff = property(_get_encoder_diff,_set_encoder_diff)
-
 #--------------------------
 
 # # set up the knobs, store them in an array
@@ -86,18 +75,17 @@ for config in knobs_config:
     button = Debouncer(button_pin)
     knobs.append( Knob(encoder, button, color, midi_cc_num) )
 
-numpixels = 8
-leds = neopixel.NeoPixel(board.GP14, numpixels, brightness=0.2, auto_write=False)
+leds = neopixel.NeoPixel(led_pin, num_leds, brightness=0.2, auto_write=False)
 
-leds.fill(0xff6600); leds.show()
+# testing
+leds.fill(0xff6600); leds.show();
 time.sleep(0.5)
-leds.fill(0); leds.show()
-leds[0] = (0,0xff,0)
-leds[len(leds)-1] = (0,0xff,0); leds.show()
+leds.fill(0); leds[0] = (0,0xff,0); leds[len(leds)-1] = (0,0xff,0); leds.show()
 time.sleep(0.5)
 leds.fill(0); leds.show()
 
-def val_to_strip(color,val):
+# convert midi cc value to a led strip info
+def val_to_leds(color,val):
     leds.fill(color)
     i = len(leds)-1  - (val // len(leds))
     leds[i] = 0xffffff
@@ -110,7 +98,7 @@ while True:
         knob.update()
         diff = knob.change
         if diff or knob.button.fell or knob.button.rose:
-            val_to_strip(knob.color, knob.midi_cc_val)
+            val_to_leds(knob.color, knob.midi_cc_val)
             butpress = '-'
             if knob.button.fell:
                 butpress = 'v'
