@@ -9,6 +9,11 @@
 # - Each knob has unique color representation
 # - Push knob to see its current value on Neopixel strip
 #
+# Installation:
+# - `circup install adafruit_debouncer adafruit_midi adafruit_pioasm neopixel`
+# - cp rp2pio_dualincrementalencoder.py /Volumes/CIRCUITPY
+# - cp pico8enc_midi.py /Volumes/CIRCUITPY/code.py
+#
 # Note: this uses 'rp2io_dualincrementalencoder' to use one PIO
 # StateMachine per two rotary encoders. This allows us to have a
 # PIO StateMachine left over for doing Neopixels
