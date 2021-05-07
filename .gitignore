@@ -1,5 +1,8 @@
 # Ignore list for Eagle, a PCB layout tool
 
+# ignore .bmp file
+*.bmp
+
 # Backup files
 *.s#?
 *.b#?
