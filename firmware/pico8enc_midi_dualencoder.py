@@ -119,27 +119,6 @@ def val_to_leds(color,val):
     leds.fill(color)
     leds[i] = 0xffffff
     leds.show()
-
-# def val_to_leds2(color,val):
-#     di = 
-#     ifl = val / 16
-#     i = val // 16
-    
-    
-#     i = len(leds)-1 - (val // 16)  # FIXME magic 16
-#     leds.fill(color)
-#     leds[i] = 0xffffff
-#     leds.show()
-
-# i=0
-# while True:
-#     val_to_leds(0x00ff00, i)
-#     print(f"i:{i}")
-#     #leds.fill(0x00ff00)
-#     #leds[i] = 0xffffff
-#     #leds.show()
-#     i = (i + 1) % 127
-#     time.sleep(0.1)
     
 print("pico8enc - 8 rotary encoders midi controller")
 while True:
