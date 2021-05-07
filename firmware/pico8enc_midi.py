@@ -14,7 +14,7 @@
 # PIO StateMachine left over for doing Neopixels
 #
 # Because of how current pico8enc PCB is laid out, all 8 encoders
-# cannot be collopsed into 4 DualEncoder objects. Instead it's:
+# cannot be collapsed into 4 DualEncoder objects. Instead it's:
 # EncoderA - single IncrementalEncoder
 # EncoderB \_ DualncrementalEncoder
 # EncoderC /
@@ -41,7 +41,7 @@ from rp2pio_dualincrementalencoder import DualIncrementalEncoder
 # note that some of these will be controlled by DualIncrementalEncoder
 # and some by rotaryio.IncrementalEncoder
 knobs_config  = (
-    # name, encoder pins (pinA,pinB,switchPin)   #color    # midi CC number # mult
+    # name, encoder pins (pinA,pinB,switchPin)   #color    # midi CC number 
     ( 'A', (board.GP27, board.GP28, board.GP26), 0xFF00FF, 21 ),  # left-most knob
     ( 'B', (board.GP0,  board.GP1,  board.GP22), 0x0033FF, 22 ), 
     ( 'C', (board.GP2,  board.GP3,  board.GP21), 0xFF3300, 23 ),
