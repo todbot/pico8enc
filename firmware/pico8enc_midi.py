@@ -149,12 +149,11 @@ print("pico8enc - 8 rotary encoders midi controller")
 print("Knobs configured:")
 for i in range(len(knobs)):
     k = knobs[i]
-    leds[i] = k.color
     print(f"knob:{k.name} MIDI CC:{k.midi_cc_num} color:#{k.color:06x}")
-leds.show()
+
+last_touch_time = 0 
 
 while True:
-    #time.sleep(0.1)
     for knob in knobs:
         knob.update()
         diff = knob.change
@@ -163,11 +162,17 @@ while True:
             # actually send midi control change
             midi.send(ControlChange(knob.midi_cc_num, knob.midi_cc_val))
             butpress = '-'
-            if knob.button.fell:
-                butpress = 'v'
-            if knob.button.rose:
-                butpress = '^'
-            print("MIDI CC#:%d = %d knob:%d diff:%d but:%s" % (knob.midi_cc_num, knob.midi_cc_val, knob.position, diff, butpress))
+            if knob.button.fell: butpress = 'v'
+            if knob.button.rose: butpress = '^'
+            print(f"MIDI CC:{knob.midi_cc_num}={knob.midi_cc_val:3d} knob:{knob.position} d:{diff} but:{butpress}")
+            last_touch_time = time.monotonic()
+
+    # display knob colors on idle
+    if time.monotonic() - last_touch_time > 2:
+        for i in range(len(knobs)):
+            leds[len(leds)-1-i] = knobs[i].color
+        leds.show()
+        
 
 
     
