@@ -10,8 +10,13 @@ from digitalio import DigitalInOut, Direction, Pull
 import rotaryio
 from adafruit_debouncer import Debouncer
 import neopixel
+import usb_midi
 import adafruit_midi
+from adafruit_midi.note_off         import NoteOff
+from adafruit_midi.note_on          import NoteOn
 from adafruit_midi.control_change   import ControlChange
+
+midi = adafruit_midi.MIDI(midi_out=usb_midi.ports[1])
 
 # config for all the knobs
 # OOPS: Looks like CircuitPython can either support EITHER
@@ -99,10 +104,10 @@ while True:
         diff = knob.change
         if diff or knob.button.fell or knob.button.rose:
             val_to_leds(knob.color, knob.midi_cc_val)
+            midi.send(ControlChange(knob.midi_cc_num, knob.midi_cc_val))
             butpress = '-'
             if knob.button.fell:
                 butpress = 'v'
-                #midi.send(ControlChange(knob.midi_cc_num, knob.midi_cc_val))
             if knob.button.rose:
                 butpress = '^'
             print("MIDI CC#:%d = %d knob:%d diff:%d but:%s" % (knob.midi_cc_num, knob.midi_cc_val, knob.position, diff, butpress))
