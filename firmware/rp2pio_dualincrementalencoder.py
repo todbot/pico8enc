@@ -5,6 +5,8 @@
 # This example is adapted in part from micropython:
 # https://github.com/micropython/micropython/pull/6894/files
 #
+# Originally from:
+# https://github.com/adafruit/Adafruit_CircuitPython_PIOASM/blob/main/examples/rotaryencoder.py
 # Modified by @todbot on 6 May 2021
 # to support dual rotary encoders
 
@@ -126,9 +128,9 @@ class DualIncrementalEncoder:
             # turn quarter_counts into position counts
         return (self._counter0 // 4, self._counter1 // 4)
 
+    # note this fails sometimes because loosing quarter counts
     def set_positions(self, vals):
         val0,val1 = vals
-        #print("set positions:",val0,val1)
         if val0 is not None:
             self._counter0 = val0*4
         if val1 is not None:
@@ -146,5 +148,5 @@ if __name__ == "__main__":
     while True:
         positions = encoders.positions
         if old_positions != positions:
-            print("zzDual Encoders:", positions)
+            print("Dual Encoders:", positions)
             old_positions = positions
