@@ -150,7 +150,7 @@ print("Knobs configured:")
 for i in range(len(knobs)):
     k = knobs[i]
     leds[i] = k.color
-    print(f"knob:{k.name} MIDI CC:{k.midi_cc_num}")
+    print(f"knob:{k.name} MIDI CC:{k.midi_cc_num} color:#{k.color:06x}")
 leds.show()
 
 while True:
